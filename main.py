@@ -11,35 +11,135 @@ st.set_page_config(
 # --- Custom CSS for better styling ---
 st.markdown("""
     <style>
+    /* Import de la police Fredoka (très ronde et ludique) */
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&display=swap');
+
+    /* Application de la police à toute l'app */
+    html, body, [class*="css"]  {
+        font-family: 'Fredoka', sans-serif;
+    }
+
+    /* Style général des boutons */
     .stButton>button {
         width: 100%;
-        border-radius: 10px;
-        height: 3em;
+        border-radius: 12px;
+        height: 3.5em;
         font-weight: bold;
+        border: none;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: all 0.2s;
     }
+    .stButton>button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+    }
+
+    /* Couleur de la barre de progression */
     .stProgress > div > div > div > div {
         background-color: #4CAF50;
     }
+
+    /* Boîte de la question */
     .question-box {
         background-color: #f0f2f6;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        border-left: 5px solid #4CAF50;
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        border-left: 6px solid #4CAF50;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
+    .question-box h3 {
+        font-weight: 600;
+        margin: 0;
+    }
+
+    /* --- STYLING DES OPTIONS (Boutons Radio) --- */
+    
+    /* Le label "Choisissez une réponse :" style badge/bulle */
+    .stRadio > label {
+        font-size: 1.1rem !important;
+        font-weight: 600 !important;
+        color: #2c3e50;
+        background-color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 20px; /* Forme de pilule */
+        margin-bottom: 20px;
+        display: inline-block; /* S'adapte à la taille du texte */
+        border: 2px solid #eef2f6;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Les options elles-mêmes (transformées en cartes) */
+    div[role="radiogroup"] > label {
+        background-color: #ffffff;
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        border: 2px solid #eef2f6;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        display: flex; /* Assure un bon alignement */
+        align-items: center;
+        width: 100%; /* Force la largeur à 100% pour uniformiser */
+        box-sizing: border-box;
+    }
+
+    /* Effet au survol des options */
+    div[role="radiogroup"] > label:hover {
+        background-color: #f8fff9;
+        border-color: #4CAF50;
+        transform: translateX(5px); /* Petite animation vers la droite */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    /* Messages de feedback */
     .success-msg {
-        color: #4CAF50;
+        color: #155724;
         font-weight: bold;
-        padding: 10px;
-        border-radius: 5px;
-        background-color: #dff0d8;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        margin-bottom: 15px;
     }
     .error-msg {
-        color: #D32F2F;
+        color: #721c24;
         font-weight: bold;
-        padding: 10px;
-        border-radius: 5px;
-        background-color: #fdecea;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        margin-bottom: 15px;
+    }
+    .correct-msg {
+        background-color: #cce5ff;
+        color: #004085;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #b8daff;
+        text-align: center;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    
+    /* Boîte des sources */
+    .sources-box {
+        background-color: #fff3cd;
+        color: #856404;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #ffeeba;
+        margin-top: 15px;
+        margin-bottom: 30px;
+    }
+    .sources-box h5 {
+        font-weight: bold;
+        margin-top: 0;
+    }
+    .sources-box a {
+        color: #533f03 !important;
+        text-decoration: underline;
+        font-weight: 600;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -48,64 +148,138 @@ st.markdown("""
 # Questions sur l'indépendance numérique et la vie privée
 QUESTIONS = [
     {
+        "question": "Quel robot conversationnel ne stocke pas vos données lorsque vous discutez avec lui ?",
+        "options": ["ChatGPT", "Gemini", "Copilot AI", "Aucun"],
+        "answer": "Aucun",
+        "explanation": "Tous les modèles de chat modernes conservent au minimum des traces techniques (logs, métadonnées, usage) pour améliorer les services ou surveiller l’usage. Aucun ne fonctionne en interaction directe sans captation minimale.",
+        "sources": [
+            "https://openai.com/privacy",
+            "https://policies.google.com/privacy",
+            "https://privacy.microsoft.com/"
+        ]
+    },
+    {
+        "question": "Quel logiciel bureautique libre et gratuit permet de créer des documents, des présentations et des feuilles de calcul sans dépendre d’un service en ligne ?",
+        "options": ["Microsoft Office 365", "Google Docs", "LibreOffice", "WPS Office"],
+        "answer": "LibreOffice",
+        "explanation": "LibreOffice est une suite bureautique libre, fonctionnant hors-ligne, et ne nécessitant pas de compte en ligne. Elle est développée par The Document Foundation.",
+        "sources": [
+            "https://www.libreoffice.org/discover/libreoffice/",
+            "https://www.documentfoundation.org/"
+        ]
+    },
+    {
         "question": "Quelle est une alternative libre et open-source majeure aux systèmes Windows et macOS ?",
         "options": ["Android", "iOS", "Linux", "MS-DOS"],
         "answer": "Linux",
-        "explanation": "Linux est un système d'exploitation libre (open-source) qui vous donne le contrôle total sur votre machine sans envoyer de données à une entreprise tierce."
+        "explanation": "Linux est un système d'exploitation libre (open-source) qui vous donne le contrôle total sur votre machine sans envoyer de données à une entreprise tierce.",
+        "sources": [
+            "https://www.kernel.org/",
+            "https://www.gnu.org/philosophy/free-sw.en.html"
+        ]
     },
     {
         "question": "Quel navigateur web est développé par une fondation à but non lucratif et protège par défaut contre le pistage ?",
         "options": ["Google Chrome", "Mozilla Firefox", "Microsoft Edge", "Safari"],
         "answer": "Mozilla Firefox",
-        "explanation": "Firefox est développé par la fondation Mozilla. Contrairement à Chrome ou Edge, son modèle économique ne repose pas sur la vente de vos données publicitaires."
+        "explanation": "Firefox est développé par la fondation Mozilla. Contrairement à Chrome ou Edge, son modèle économique ne repose pas sur la vente de vos données publicitaires.",
+        "sources": [
+            "https://www.mozilla.org/fr/about/",
+            "https://www.mozilla.org/en-US/firefox/features/privacy/"
+        ]
     },
     {
         "question": "Quel moteur de recherche promet de ne pas tracer vos requêtes ni de créer de profil publicitaire ?",
         "options": ["Google", "Bing", "DuckDuckGo", "Yahoo"],
         "answer": "DuckDuckGo",
-        "explanation": "DuckDuckGo (ou Qwant en France) est un moteur de recherche qui respecte la vie privée en ne stockant pas votre historique de recherche."
+        "explanation": "DuckDuckGo (ou Qwant en France) est un moteur de recherche qui respecte la vie privée en ne stockant pas votre historique de recherche.",
+        "sources": [
+            "https://duckduckgo.com/privacy",
+            "https://www.qwant.com/privacy"
+        ]
+    },
+
+    # --- QUESTIONS PLUS AVANCÉES ---
+
+    {
+        "question": "Dans le cycle de vie d’un ordinateur portable, quelle phase représente en moyenne l’impact carbone le plus élevé ?",
+        "options": ["Son transport jusqu'au magasin", "Son utilisation quotidienne", "Sa fabrication", "Son recyclage en fin de vie"],
+        "answer": "Sa fabrication",
+        "explanation": "Plus de 70 % de l'impact carbone d’un ordinateur provient de la fabrication, en raison de l’extraction de métaux rares, de la production de composants et de l’assemblage.",
+        "sources": [
+            "https://www.data.gouv.fr/fr/reuses/quelle-est-lempreinte-carbone-dun-ordinateur-portable/",
+            "https://www.greenit.fr/2011/02/10/quelle-est-l-empreinte-carbone-d-un-ordinateur/"
+        ]
     },
     {
-        "question": "Quelle application de messagerie est recommandée par les experts pour son chiffrement de bout en bout et sa collecte minimale de métadonnées ?",
-        "options": ["WhatsApp", "Signal", "Facebook Messenger", "Telegram"],
-        "answer": "Signal",
-        "explanation": "Signal est une application open-source gérée par une fondation. Elle ne collecte pratiquement aucune métadonnée sur ses utilisateurs, contrairement à WhatsApp."
+        "question": "Pourquoi le reconditionnement est écologiquement plus vertueux que le recyclage pur ?",
+        "options": [
+            "Parce que recycler consomme plus d'énergie et détruit les composants",
+            "Parce que les machines recyclées sont revendues plus cher",
+            "Parce que les matériaux recyclés sont de moindre qualité",
+            "Parce que le reconditionnement supprime toute pollution"
+        ],
+        "answer": "Parce que recycler consomme plus d'énergie et détruit les composants",
+        "explanation": "Le recyclage implique concassage, fusion et séparation chimique. Reconditionner évite la refabrication des composants, ce qui économise énergie et ressources.",
+        "sources": [
+            "https://weeefund.fr/2021/06/18/comment-mesurer-limpact-environnemental-du-reemploi-dun-ordinateur/",
+            "https://www.ademe.fr/publications/economie-circulaire"
+        ]
     },
     {
-        "question": "Pour remplacer Google Drive ou Dropbox en gardant la maîtrise de ses données, quelle solution d'auto-hébergement est populaire ?",
-        "options": ["Nextcloud", "iCloud", "OneDrive", "WeTransfer"],
-        "answer": "Nextcloud",
-        "explanation": "Nextcloud est une suite logicielle libre que vous pouvez installer sur votre propre serveur (ou chez un hébergeur de confiance) pour stocker vos fichiers, contacts et agendas."
+        "question": "Quel type de contenu en ligne est le plus consommateur d'énergie par utilisateur ?",
+        "options": ["Le mail texte sans pièce jointe", "L’écoute d’un podcast", "Le streaming vidéo HD", "La navigation sur un site statique"],
+        "answer": "Le streaming vidéo HD",
+        "explanation": "Les vidéos HD nécessitent jusqu'à 100 fois plus de données qu’un contenu audio, sollicitant les serveurs et réseaux sur de longues durées.",
+        "sources": [
+            "https://theshiftproject.org/wp-content/uploads/2019/07/carbon-impacts-of-video-streaming-report-shift-project.pdf",
+            "https://www.hellocarbo.com/blog/calculer/impact-du-numerique-sur-l-environnement/"
+        ]
     },
     {
-        "question": "Quel service d'e-mail chiffré, basé en Suisse, est une alternative courante à Gmail pour protéger sa correspondance ?",
-        "options": ["Outlook", "Proton Mail", "Yahoo Mail", "Orange Mail"],
-        "answer": "Proton Mail",
-        "explanation": "Proton Mail utilise le chiffrement de bout en bout et est protégé par les lois suisses sur la vie privée, offrant une sécurité supérieure aux géants du web."
+        "question": "Pourquoi la suppression régulière de données stockées dans le cloud réduit réellement l’impact environnemental ?",
+        "options": [
+            "Parce que les serveurs remplacent automatiquement les fichiers supprimés",
+            "Parce que moins de données signifie moins de serveurs actifs",
+            "Parce que le cloud fonctionne sur les appareils personnels",
+            "Parce que les données supprimées ralentissent internet"
+        ],
+        "answer": "Parce que moins de données signifie moins de serveurs actifs",
+        "explanation": "L'hébergement de données nécessite du stockage redondant et donc davantage de machines maintenues sous tension, refroidies et alimentées.",
+        "sources": [
+            "https://www.greenit.fr/2020/06/10/impact-stockage-mail-cloud/",
+            "https://theshiftproject.org/"
+        ]
     },
     {
-        "question": "Sur Android, quel magasin d'applications alternatif ne propose que des logiciels libres et open-source (FOSS) ?",
-        "options": ["Google Play Store", "Amazon Appstore", "F-Droid", "Samsung Galaxy Store"],
-        "answer": "F-Droid",
-        "explanation": "F-Droid est un catalogue d'applications libres pour Android. Il ne nécessite pas de compte et respecte votre vie privée (pas de tracking)."
+        "question": "Quel facteur explique principalement l’empreinte énergétique des centres de données (datacenters) ?",
+        "options": [
+            "Le nettoyage quotidien des équipements",
+            "Le refroidissement permanent des serveurs",
+            "Le coût de leurs matériaux de construction",
+            "La taille des bâtiments"
+        ],
+        "answer": "Le refroidissement permanent des serveurs",
+        "explanation": "Les serveurs doivent rester sous ~27°C pour fonctionner. Le refroidissement représente parfois plus de la moitié de leur consommation électrique.",
+        "sources": [
+            "https://opera-energie.com/consommation-energie-datacenter/",
+            "https://www.iea.org/reports/data-centres-and-data-transmission-networks"
+        ]
     },
     {
-        "question": "Quelle plateforme vidéo fédérée et décentralisée permet de visionner du contenu sans passer par l'algorithme de YouTube ?",
-        "options": ["Dailymotion", "Twitch", "PeerTube", "Vimeo"],
-        "answer": "PeerTube",
-        "explanation": "PeerTube est un logiciel qui permet de créer des plateformes vidéo interconnectées. Il n'y a pas d'entité centrale qui contrôle ce que vous regardez."
-    },
-    {
-        "question": "Quelle est l'alternative collaborative et libre à Google Maps, construite par des volontaires ?",
-        "options": ["OpenStreetMap", "Waze", "Apple Maps", "Mappy"],
-        "answer": "OpenStreetMap",
-        "explanation": "OpenStreetMap (OSM) est le 'Wikipédia des cartes'. C'est une base de données géographique libre et gratuite, utilisée par de nombreuses applications comme OsmAnd ou Organic Maps."
-    },
-    {
-        "question": "Que signifie l'acronyme GAFAM, qui désigne les géants dont on cherche souvent à s'émanciper ?",
-        "options": ["Global Association For Advanced Machines", "Google Amazon Facebook Apple Microsoft", "Groupe d'Action Pour la Formation aux Métiers", "Google Apple Facebook Amazon Mozilla"],
-        "answer": "Google Amazon Facebook Apple Microsoft",
-        "explanation": "Cet acronyme regroupe les cinq géants américains du numérique qui dominent le marché et collectent massivement des données personnelles."
+        "question": "Quel indicateur environnemental correspond à l’énergie totale consommée tout au long de la fabrication d’un objet numérique ?",
+        "options": [
+            "L'énergie grise",
+            "La puissance brute",
+            "La consommation thermique",
+            "La charge de calcul"
+        ],
+        "answer": "L'énergie grise",
+        "explanation": "L’énergie grise inclut extraction des métaux, transport, assemblage, tests et fin de vie : c’est l'indicateur principal pour l’impact matériel du numérique.",
+        "sources": [
+            "https://en.wikipedia.org/wiki/Embodied_energy",
+            "https://www.techcarbonstandard.org/technology-categories/lifecycle/embodied"
+        ]
     }
 ]
 
@@ -118,6 +292,8 @@ if 'quiz_complete' not in st.session_state:
     st.session_state.quiz_complete = False
 if 'user_answers' not in st.session_state:
     st.session_state.user_answers = {} # Stores {index: user_choice}
+if 'answer_submitted' not in st.session_state:
+    st.session_state.answer_submitted = False
 
 # --- Helper Functions ---
 
@@ -126,6 +302,7 @@ def restart_quiz():
     st.session_state.score = 0
     st.session_state.quiz_complete = False
     st.session_state.user_answers = {}
+    st.session_state.answer_submitted = False
     st.rerun()
 
 def submit_answer():
@@ -133,7 +310,7 @@ def submit_answer():
     choice = st.session_state.get(f"q_{st.session_state.current_question_index}")
     
     if not choice:
-        st.warning("Please select an answer before proceeding.")
+        st.warning("Veuillez choisir une réponse avant de valider.")
         return
 
     # Record the answer
@@ -145,17 +322,23 @@ def submit_answer():
     if choice == correct_answer:
         st.session_state.score += 1
     
-    # Move to next or finish
+    # Mark as submitted, but don't move to next question yet
+    st.session_state.answer_submitted = True
+    st.rerun()
+
+def next_question():
+    # Move to next question and reset submitted state
     if st.session_state.current_question_index < len(QUESTIONS) - 1:
         st.session_state.current_question_index += 1
+        st.session_state.answer_submitted = False
     else:
         st.session_state.quiz_complete = True
-    
     st.rerun()
 
 # --- Main App Interface ---
 
 st.title("🛡️ Quiz : Souveraineté Numérique")
+# Petit ajustement ici pour que le texte soit visible sur fond coloré (géré par CSS global, mais on peut forcer si besoin)
 st.write("Testez vos connaissances pour vous libérer des géants du numérique !")
 
 # Progress Bar
@@ -174,11 +357,11 @@ if st.session_state.quiz_complete:
     
     if score_percentage >= 80:
         st.balloons()
-        st.success(f"🎉 Bravo ! Vous avez obtenu {st.session_state.score} sur {len(QUESTIONS)} ({score_percentage}%)")
+        st.success(f"🎉 Bravo ! Vous avez obtenu {st.session_state.score} sur {len(QUESTIONS)} ({score_percentage:.2f}%)")
     elif score_percentage >= 50:
-        st.info(f"👍 Pas mal ! Vous avez obtenu {st.session_state.score} sur {len(QUESTIONS)} ({score_percentage}%)")
+        st.info(f"👍 Pas mal ! Vous avez obtenu {st.session_state.score} sur {len(QUESTIONS)} ({score_percentage:.2f}%)")
     else:
-        st.error(f"😅 Continuez à apprendre ! Vous avez obtenu {st.session_state.score} sur {len(QUESTIONS)} ({score_percentage}%)")
+        st.error(f"😅 Continuez à apprendre ! Vous avez obtenu {st.session_state.score} sur {len(QUESTIONS)} ({score_percentage:.2f}%)")
     
     st.subheader("Récapitulatif de vos réponses :")
     
@@ -191,9 +374,20 @@ if st.session_state.quiz_complete:
                 st.markdown(f"<div class='success-msg'>✅ Votre réponse : {user_choice}</div>", unsafe_allow_html=True)
             else:
                 st.markdown(f"<div class='error-msg'>❌ Votre réponse : {user_choice}</div>", unsafe_allow_html=True)
-                st.write(f"**Bonne réponse :** {q['answer']}")
+                # Affichage de la bonne réponse dans une boîte dédiée
+                st.markdown(f"<div class='correct-msg'>👉 Bonne réponse : {q['answer']}</div>", unsafe_allow_html=True)
             
-            st.info(f"ℹ️ **Explication :** {q['explanation']}")
+            # Explication
+            st.markdown(f"<div style='color: #333; background-color: #e8f4f8; padding: 10px; border-radius: 5px; margin-top: 10px;'>ℹ️ <b>Explication :</b> {q['explanation']}</div>", unsafe_allow_html=True)
+            
+            # Section SOURCES
+            if "sources" in q and q["sources"]:
+                # Construction du HTML pour la boîte des sources
+                sources_html = "<div class='sources-box'><h5>📚 Pour aller plus loin :</h5><ul>"
+                for source in q["sources"]:
+                    sources_html += f"<li><a href='{source}' target='_blank'>{source}</a></li>"
+                sources_html += "</ul></div>"
+                st.markdown(sources_html, unsafe_allow_html=True)
 
     st.divider()
     if st.button("🔄 Recommencer le Quiz"):
@@ -211,20 +405,54 @@ else:
     """, unsafe_allow_html=True)
     
     # Display Options
-    # We use a unique key based on the index so Streamlit resets the widget for new questions
+    # On désactive les choix si la réponse a déjà été soumise
     choice = st.radio(
         "Choisissez une réponse :",
         question_data['options'],
         key=f"q_{st.session_state.current_question_index}",
-        index=None # No default selection
+        index=None,
+        disabled=st.session_state.answer_submitted
     )
+    
+    # --- Immediate Feedback Section ---
+    if st.session_state.answer_submitted:
+        # Check if the submitted answer was correct
+        user_choice = st.session_state.user_answers.get(st.session_state.current_question_index)
+        correct_answer = question_data['answer']
+        
+        if user_choice == correct_answer:
+            st.markdown(f"<div class='success-msg'>✅ Correct !</div>", unsafe_allow_html=True)
+        else:
+            st.markdown(f"<div class='error-msg'>❌ Incorrect !</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='correct-msg'>👉 Bonne réponse : {correct_answer}</div>", unsafe_allow_html=True)
+            
+        # Explication immédiate
+        st.markdown(f"<div style='color: #333; background-color: #e8f4f8; padding: 10px; border-radius: 5px; margin-top: 10px;'>ℹ️ <b>Explication :</b> {question_data['explanation']}</div>", unsafe_allow_html=True)
+            
+        # Sources immédiates
+        if "sources" in question_data and question_data["sources"]:
+            sources_html = "<div class='sources-box'><h5>📚 Pour aller plus loin :</h5><ul>"
+            for source in question_data["sources"]:
+                sources_html += f"<li><a href='{source}' target='_blank'>{source}</a></li>"
+            sources_html += "</ul></div>"
+            st.markdown(sources_html, unsafe_allow_html=True)
     
     st.write("") # Spacer
     
+    # --- Buttons (Switch between Valid and Next) ---
     col1, col2 = st.columns([1, 3])
     with col1:
-        if st.button("Valider ➡"):
-            submit_answer()
+        if st.session_state.answer_submitted:
+            # Show "Next" button
+            if st.session_state.current_question_index < len(QUESTIONS) - 1:
+                if st.button("Question Suivante ➡"):
+                    next_question()
+            else:
+                if st.button("Voir les résultats 🏁"):
+                    next_question()
+        else:
+            # Show "Submit" button
+            if st.button("Valider ➡"):
+                submit_answer()
     with col2:
-        # Just filling space
         pass
