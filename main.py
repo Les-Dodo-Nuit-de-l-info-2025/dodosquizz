@@ -228,7 +228,3 @@ else:
     with col2:
         # Just filling space
         pass
-
-# Footer
-st.markdown("---")
-st.caption("Built with ❤️ using Streamlit")
