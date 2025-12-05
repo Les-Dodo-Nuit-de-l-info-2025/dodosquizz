@@ -34,67 +34,86 @@ def start_quiz():
 # --- Define Themes ---
 if st.session_state.dark_mode:
     theme = {
-        "bg_color": "#0E1117",
-        "text_color": "#FAFAFA",
-        "card_bg": "#262730",
-        "card_border": "#3b3d45",
-        "option_bg": "#1d2026",
-        "option_hover": "#2d313a",
-        "success_bg": "#1b4d2e",
-        "success_text": "#a5d6a7",
-        "success_border": "#2e7d32",
-        "error_bg": "#4a1c1c",
-        "error_text": "#ef9a9a",
-        "error_border": "#b71c1c",
-        "info_bg": "#0d305c",
-        "info_text": "#90caf9",
-        "info_border": "#1565c0",
-        "sources_bg": "#3e320a",
-        "sources_text": "#ffe082",
-        "sources_border": "#856404",
-        "link_color": "#FFD700",
-        "btn_shadow": "rgba(255, 255, 255, 0.1)",
-        "radio_label_bg": "#262730",
-        "btn_bg": "#FFD700",          
-        "btn_text": "#0E1117",        
-        "btn_hover": "#e6c200"
+        "bg_color": "#0B0E14",          # Noir bleuté professionnel
+        "text_color": "#F8F8F8",        # Blanc doux très lisible
+        "card_bg": "#1A1E26",           # Gris foncé bleuté
+        "card_border": "#343A40",
+
+        "option_bg": "#1C212B",
+        "option_hover": "#2B3340",
+
+        "success_bg": "#153A29",
+        "success_text": "#A5F2C1",
+        "success_border": "#2BC56D",
+
+        "error_bg": "#3A1515",
+        "error_text": "#FF9999",
+        "error_border": "#E44444",
+
+        "info_bg": "#11263F",
+        "info_text": "#96C9FF",
+        "info_border": "#468FE3",
+
+        "sources_bg": "#2E230C",
+        "sources_text": "#FFD78D",
+        "sources_border": "#7A5C1E",
+
+        "link_color": "#B58CFF",
+
+        "btn_shadow": "rgba(255,255,255,0.08)",
+        "radio_label_bg": "#1A1E26",
+
+        "btn_bg": "#6A49C9",
+        "btn_text": "#FFFFFF",
+        "btn_hover": "#8459FF",
     }
-    btn_label = "☀️ Mode Clair"
+
+    btn_label = "☀️"
 else:
     theme = {
         "bg_color": "#FFFFFF",
-        "text_color": "#2c3e50",
-        "card_bg": "#f0f2f6",
-        "card_border": "#f0f2f6",
-        "option_bg": "#ffffff",
-        "option_hover": "#f8fff9",
-        "success_bg": "#d4edda",
-        "success_text": "#155724",
-        "success_border": "#c3e6cb",
-        "error_bg": "#f8d7da",
-        "error_text": "#721c24",
-        "error_border": "#f5c6cb",
-        "info_bg": "#cce5ff",
-        "info_text": "#004085",
-        "info_border": "#b8daff",
-        "sources_bg": "#fff3cd",
-        "sources_text": "#856404",
-        "sources_border": "#ffeeba",
-        "link_color": "#533f03",
+        "text_color": "#2B2B2B",
+        "card_bg": "#F2F4FA",       # Bleu lavé moderne
+        "card_border": "#E7E9F0",
+
+        "option_bg": "#FFFFFF",
+        "option_hover": "#F6F2FE",   # Léger violet clair hover
+
+        "success_bg": "#D6FFEA",
+        "success_text": "#105C35",
+        "success_border": "#4AD771",
+
+        "error_bg": "#FFE1E1",
+        "error_text": "#8B1F1F",
+        "error_border": "#E37474",
+
+        "info_bg": "#DCECFF",
+        "info_text": "#0E3A71",
+        "info_border": "#80BAFF",
+
+        "sources_bg": "#FFF7D1",
+        "sources_text": "#705003",
+        "sources_border": "#FFD972",
+
+        "link_color": "#3B2077",
+
         "btn_shadow": "rgba(0,0,0,0.1)",
-        "radio_label_bg": "#ffffff",
-        "btn_bg": "#FFD700",
-        "btn_text": "#2c3e50",
-        "btn_hover": "#ffe033"
+        "radio_label_bg": "#FFFFFF",
+
+        "btn_bg": "#6A49C9",
+        "btn_text": "#FFFFFF",
+        "btn_hover": "#8459FF",
     }
-    btn_label = "🌙 Mode Sombre"
+
+    btn_label = "🌙"
+
 
 # --- Custom CSS (Dynamic) ---
 st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&display=swap');
 
-    html, body, [class*="css"], font, span, div, p, h1, h2, h3, h4, h5, h6, .stMarkdown, .stButton button, .stRadio label {{
+    html, body, p, h1, h2, h3, h4, h5, h6, .stMarkdown, .stButton button, .stRadio label {{
         font-family: 'Fredoka', sans-serif !important;
     }}
 
@@ -110,6 +129,12 @@ st.markdown(f"""
     h1, h2, h3, h4, h5, p, span, div {{
         color: {theme['text_color']};
     }}
+
+    .stButton>button,
+    .stButton>button span {{
+        color: {theme['btn_text']} !important;
+    }}  
+
 
     .stButton>button {{
         width: 100%;
@@ -280,8 +305,23 @@ QUESTIONS = [
         "answer": "Linux",
         "explanation": "Linux est un système d'exploitation libre (open-source) qui vous donne le contrôle total sur votre machine sans envoyer de données à une entreprise tierce.",
         "sources": [
-            "https://www.kernel.org/",
-            "https://www.gnu.org/philosophy/free-sw.en.html"
+            "https://www.francenum.gouv.fr/formations/initiez-vous-linux",
+            "https://video.echirolles.fr/w/hVykGUtRZqRen6eiutqRvQ"
+        ]
+    },
+    {
+        "question": "Quel phénomène peut rendre un appareil matériellement fonctionnel mais inutilisable faute de compatibilité ou de mises à jour ?",
+        "options": [
+            "L’obsolescence logicielle",
+            "La surcharge énergétique",
+            "Le redimensionnement matériel",
+            "La virtualisation automatique"
+        ],
+        "answer": "L’obsolescence logicielle",
+        "explanation": "L’obsolescence logicielle se produit lorsqu’un équipement encore fonctionnel ne reçoit plus de correctifs, de pilotes ou de mises à jour logicielles nécessaires à son utilisation. Cela pousse à remplacer l’appareil alors qu’il fonctionne encore matériellement.",
+        "sources": [
+            "https://tube.numerique.gouv.fr/w/wCyvx5RNXQrwBj6J378WTF",
+            "https://www.radiofrance.fr/franceinter/podcasts/le-grand-reportage-de-france-inter/le-grand-reportage-du-mardi-14-octobre-2025-4136495"
         ]
     },
     {
@@ -291,7 +331,7 @@ QUESTIONS = [
         "explanation": "Firefox est développé par la fondation Mozilla. Contrairement à Chrome ou Edge, son modèle économique ne repose pas sur la vente de vos données publicitaires.",
         "sources": [
             "https://www.mozilla.org/fr/about/",
-            "https://www.mozilla.org/en-US/firefox/features/privacy/"
+            "https://www.lemonde.fr/pixels/article/2024/11/09/un-geste-politique-pourquoi-firefox-continue-d-etre-utilise-malgre-l-hegemonie-de-chrome_6384639_4408996.html"
         ]
     },
     {
@@ -301,7 +341,7 @@ QUESTIONS = [
         "explanation": "DuckDuckGo (ou Qwant en France) est un moteur de recherche qui respecte la vie privée en ne stockant pas votre historique de recherche.",
         "sources": [
             "https://duckduckgo.com/privacy",
-            "https://www.qwant.com/privacy"
+            "https://lesbases.anct.gouv.fr/ressources/decouvrir-les-principaux-moteurs-de-recherche"
         ]
     },
     {
@@ -310,48 +350,23 @@ QUESTIONS = [
         "answer": "Sa fabrication",
         "explanation": "Plus de 70 % de l'impact carbone d’un ordinateur provient de la fabrication, en raison de l’extraction de métaux rares, de la production de composants et de l’assemblage.",
         "sources": [
-            "https://www.data.gouv.fr/fr/reuses/quelle-est-lempreinte-carbone-dun-ordinateur-portable/",
-            "https://www.greenit.fr/2011/02/10/quelle-est-l-empreinte-carbone-d-un-ordinateur/"
+            "https://www.data.gouv.fr/fr/reuses/quelle-est-lempreinte-carbone-dun-ordinateur-portable/"
         ]
     },
     {
-        "question": "Pourquoi le reconditionnement est écologiquement plus vertueux que le recyclage pur ?",
+        "question": "Quelle est la meilleure manière de faire durer son matériel informatique tout en réduisant son impact écologique ?",
         "options": [
-            "Parce que recycler consomme plus d'énergie et détruit les composants",
-            "Parce que les machines recyclées sont revendues plus cher",
-            "Parce que les matériaux recyclés sont de moindre qualité",
-            "Parce que le reconditionnement supprime toute pollution"
+            "Avec un ordinateur haut de gamme",
+            "Le reconditionner ou remplacer les composants usés",
+            "Multiplier les appareils pour répartir l’usage et éviter l’usure",
+            "Installer davantage de logiciels pour optimiser les performances"
         ],
-        "answer": "Parce que recycler consomme plus d'énergie et détruit les composants",
-        "explanation": "Le recyclage implique concassage, fusion et séparation chimique. Reconditionner évite la refabrication des composants, ce qui économise énergie et ressources.",
+        "answer": "Le reconditionner ou remplacer les composants usés",
+        "explanation": "Prolonger la durée de vie d’un appareil en réparant ou remplaçant les pièces permet d'éviter la fabrication d’un nouveau produit, qui représente la majeure partie de l’impact environnemental. Les autres comportements conduisent à une surconsommation et un impact plus élevé.",
         "sources": [
-            "https://weeefund.fr/2021/06/18/comment-mesurer-limpact-environnemental-du-reemploi-dun-ordinateur/",
-            "https://www.ademe.fr/publications/economie-circulaire"
-        ]
-    },
-    {
-        "question": "Quel type de contenu en ligne est le plus consommateur d'énergie par utilisateur ?",
-        "options": ["Le mail texte sans pièce jointe", "L’écoute d’un podcast", "Le streaming vidéo HD", "La navigation sur un site statique"],
-        "answer": "Le streaming vidéo HD",
-        "explanation": "Les vidéos HD nécessitent jusqu'à 100 fois plus de données qu’un contenu audio, sollicitant les serveurs et réseaux sur de longues durées.",
-        "sources": [
-            "https://theshiftproject.org/wp-content/uploads/2019/07/carbon-impacts-of-video-streaming-report-shift-project.pdf",
-            "https://www.hellocarbo.com/blog/calculer/impact-du-numerique-sur-l-environnement/"
-        ]
-    },
-    {
-        "question": "Pourquoi la suppression régulière de données stockées dans le cloud réduit réellement l’impact environnemental ?",
-        "options": [
-            "Parce que les serveurs remplacent automatiquement les fichiers supprimés",
-            "Parce que moins de données signifie moins de serveurs actifs",
-            "Parce que le cloud fonctionne sur les appareils personnels",
-            "Parce que les données supprimées ralentissent internet"
-        ],
-        "answer": "Parce que moins de données signifie moins de serveurs actifs",
-        "explanation": "L'hébergement de données nécessite du stockage redondant et donc davantage de machines maintenues sous tension, refroidies et alimentées.",
-        "sources": [
-            "https://www.greenit.fr/2020/06/10/impact-stockage-mail-cloud/",
-            "https://theshiftproject.org/"
+            "https://www.economie.gouv.fr/dgccrf/laction-de-la-dgccrf/les-enquetes/produits-reconditionnes-quels-engagements-vis-vis-du",
+            "https://www.notre-environnement.gouv.fr/actualites/breves/article/une-seconde-vie-pour-le-materiel-informatique-de-l-etat-et-des-collectivites",
+            "https://www.francenum.gouv.fr/guides-et-conseils/pilotage-de-lentreprise/materiel-informatique/comment-optimiser-la-gestion-de"
         ]
     },
     {
@@ -365,23 +380,30 @@ QUESTIONS = [
         "answer": "Le refroidissement permanent des serveurs",
         "explanation": "Les serveurs doivent rester sous ~27°C pour fonctionner. Le refroidissement représente parfois plus de la moitié de leur consommation électrique.",
         "sources": [
-            "https://opera-energie.com/consommation-energie-datacenter/",
-            "https://www.iea.org/reports/data-centres-and-data-transmission-networks"
+            "https://www.notre-environnement.gouv.fr/actualites/breves/article/quelle-est-la-consommation-d-electricite-des-datacenters-en-france",
+            "https://www.statistiques.developpement-durable.gouv.fr/la-consommation-delectricite-des-centres-de-donnees-entre-2018-et-2023#:~:text=Ils%20consomment%20au%20total%20pr%C3%A8s,totale%20utilis%C3%A9e%20par%20ces%20infrastructures."
         ]
     },
     {
-        "question": "Quel indicateur environnemental correspond à l’énergie totale consommée tout au long de la fabrication d’un objet numérique ?",
-        "options": [
-            "L'énergie grise",
-            "La puissance brute",
-            "La consommation thermique",
-            "La charge de calcul"
-        ],
-        "answer": "L'énergie grise",
-        "explanation": "L’énergie grise inclut extraction des métaux, transport, assemblage, tests et fin de vie : c’est l'indicateur principal pour l’impact matériel du numérique.",
+        "question": "Quel robot conversationnel ne stocke pas vos données lorsque vous discutez avec lui ?",
+        "options": ["ChatGPT", "Gemini", "Copilot AI", "Aucun"],
+        "answer": "Aucun",
+        "explanation": "Tous les modèles de chat modernes conservent au minimum des traces techniques (logs, métadonnées, usage) pour améliorer les services ou surveiller l’usage. Aucun ne fonctionne en interaction directe sans captation minimale. Il est important de savoir qu'on peut s'opposer à la réutilisation de nos données !",
         "sources": [
-            "https://en.wikipedia.org/wiki/Embodied_energy",
-            "https://www.techcarbonstandard.org/technology-categories/lifecycle/embodied"
+            "https://www.cnil.fr/fr/ia-comment-sopposer-la-reutilisation-de-ses-donnees-personnelles-entrainement-agent-conversationnel#:~:text=application%20mobile,-La%20notion%20d&text=En%20savoir%20plus-,%2C%20rendez%2Dvous%20dans%20les%20%C2%AB%20Param%C3%A8tres%20%C2%BB%20du%20compte%2C,Activer%20le%20partage%20de%20donn%C3%A9es%20%C2%BB."
+            "https://openai.com/privacy",
+            "https://policies.google.com/privacy",
+            "https://privacy.microsoft.com/"
+        ]
+    },
+    {
+        "question": "Quel logiciel bureautique libre et gratuit permet de créer des documents, des présentations et des feuilles de calcul sans dépendre d’un service en ligne ?",
+        "options": ["Microsoft Office 365", "Google Docs", "LibreOffice", "WPS Office"],
+        "answer": "LibreOffice",
+        "explanation": "LibreOffice est une suite bureautique libre, fonctionnant hors-ligne, et ne nécessitant pas de compte en ligne. Elle est développée par The Document Foundation.",
+        "sources": [
+            "https://www.libreoffice.org/discover/libreoffice/",
+            "https://www.documentfoundation.org/"
         ]
     }
 ]
@@ -426,19 +448,20 @@ if not st.session_state.quiz_started:
     st.markdown("<span class='landing-emoji'>🛡️</span>", unsafe_allow_html=True)
     st.markdown("<h1 class='landing-title'>Souveraineté Numérique</h1>", unsafe_allow_html=True)
     st.markdown("<p class='landing-subtitle'>Reprenez le contrôle de vos données et découvrez les alternatives libres.</p>", unsafe_allow_html=True)
-    
-    col_spacer_left, col_btn_center, col_spacer_right = st.columns([1, 2, 1])
-    with col_btn_center:
-        st.write("") # Spacer
+
+    # Bouton centré
+    col_left, col_center, col_right = st.columns([1, 2, 1])
+    with col_center:
         if st.button("Commencer l'aventure 🚀"):
             start_quiz()
-    
+
     st.markdown("""
         <div style='text-align: center; margin-top: 50px; opacity: 0.7;'>
             <p>Ce quiz interactif de <b>10 questions</b> testera vos connaissances sur :</p>
             <p>🔒 La vie privée &nbsp;&nbsp; • &nbsp;&nbsp; 🐧 L'Open Source &nbsp;&nbsp; • &nbsp;&nbsp; 🌱 L'écologie numérique</p>
         </div>
     """, unsafe_allow_html=True)
+
 
 else:
     # --- APPLICATION QUIZ ---
