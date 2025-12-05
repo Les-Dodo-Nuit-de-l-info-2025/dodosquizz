@@ -445,9 +445,9 @@ def next_question():
 if not st.session_state.quiz_started:
     # --- PAGE DE GARDE (LANDING PAGE) ---
     st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
-    st.markdown("<span class='landing-emoji'>🛡️</span>", unsafe_allow_html=True)
-    st.markdown("<h1 class='landing-title'>Souveraineté Numérique</h1>", unsafe_allow_html=True)
-    st.markdown("<p class='landing-subtitle'>Reprenez le contrôle de vos données et découvrez les alternatives libres.</p>", unsafe_allow_html=True)
+    st.markdown("<span class='landing-emoji'>🦤</span>", unsafe_allow_html=True)
+    st.markdown("<h1 class='landing-title'>Dodos' Quizz</h1>", unsafe_allow_html=True)
+    st.markdown("""<p class='landing-subtitle'> 9 questions pour mieux comprendre l’importance de la souveraineté numérique et des bonnes pratiques pour l'environnement.</p>""", unsafe_allow_html=True)
 
     # Bouton centré
     col_left, col_center, col_right = st.columns([1, 2, 1])
@@ -457,8 +457,15 @@ if not st.session_state.quiz_started:
 
     st.markdown("""
         <div style='text-align: center; margin-top: 50px; opacity: 0.7;'>
-            <p>Ce quiz interactif de <b>10 questions</b> testera vos connaissances sur :</p>
             <p>🔒 La vie privée &nbsp;&nbsp; • &nbsp;&nbsp; 🐧 L'Open Source &nbsp;&nbsp; • &nbsp;&nbsp; 🌱 L'écologie numérique</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+        <div style='text-align: center; margin-top: 40px; opacity: 0.55; font-size: 0.9rem;'>
+            <a href='https://github.com/Les-Dodo-Nuit-de-l-info-2025' target='_blank'>
+                🌐 Accéder aux projets "Les Dodos" sur GitHub
+            </a>
         </div>
     """, unsafe_allow_html=True)
 
